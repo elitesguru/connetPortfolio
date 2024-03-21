@@ -351,6 +351,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+	<script>
+    // JavaScript for image slider
+    const slider = document.querySelector('.slider');
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideCount = slides.length;
+    const slideWidth = slides[0].clientWidth;
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slideCount;
+        updateSlider();
+    }
+
+    function updateSlider() {
+        const offset = -currentIndex * slideWidth;
+        slider.style.transform = `translateX(${offset}px)`;
+    }
+
+    setInterval(nextSlide, 2000);
+</script>
 <script>
 // Import required modules
 const express = require('express');
