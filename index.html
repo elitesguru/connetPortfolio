@@ -241,7 +241,7 @@
 				<div class="row">
 				<div class="col-md-6">
 					<div class="card-body">
-					<form action="/sendemail/" method="POST">
+					<form action="http://localhost:3000/sendemail" method="POST">
 						<div class="p pb-3">
 						<strong>Feel free to contact </strong>
 						</div>
@@ -350,22 +350,77 @@
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-	crossorigin="anonymous">
+	crossorigin="anonymous"></script>
 	
-	</script>
-	<script>
-        function sendEmail() {
-            var name = document.getElementById("name").value;
-            var message = document.getElementById("message").value;
+// Import required modules
+const express = require('express');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
 
-            // You would send this data to the server using a method like AJAX
-            // For simplicity, we'll just log the data to the console here
-            console.log("Name: " + name);
-            console.log("Message: " + message);
+// Create Express app
+const app = express();
 
-            // TODO: Implement the server-side code to send an email using a server-side language (e.g., Node.js, PHP, Python)
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Serve static files
+app.use(express.static('public'));
+
+// Define routes
+app.post('/sendemail', (req, res) => {
+    // Get form data
+    const { name, Subject, _replyto, message } = req.body;
+
+    // Email configuration
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'your_email@gmail.com',
+            pass: 'your_email_password'
         }
-    </script>
+    });
+
+    const mailOptions = {
+        from: _replyto,
+        to: 'johnbarack10@gmail.com',
+        subject: Subject,
+        text: `Name: ${name}\nEmail: ${_replyto}\nMessage: ${message}`
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            res.status(500).send('Failed to send email');
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.status(200).send('Email sent successfully');
+        }
+    });
+});
+
+app.get('/downloadcv', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'your_cv_file.pdf');
+    const fileStream = fs.createReadStream(filePath);
+
+    fileStream.on('open', () => {
+        res.setHeader('Content-Type', 'application/pdf');
+        fileStream.pipe(res);
+    });
+
+    fileStream.on('error', (error) => {
+        res.status(500).send('Failed to download CV');
+    });
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 </body>
 
