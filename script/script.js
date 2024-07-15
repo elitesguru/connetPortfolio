@@ -61,7 +61,7 @@ var typed = new Typed(".typing", {
     "Software Engineer",
     "Frontend Developer",
     "Freelancer",
-    "Youtuber"
+    "First aider"
   ],
 
   typeSpeed: 100,
