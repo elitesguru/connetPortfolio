@@ -59,7 +59,7 @@ window.addEventListener("scroll", function() {
 var typed = new Typed(".typing", {
   strings: [
     "Software Engineer",
-    "Frontend Developer",
+    "Full-stack Developer",
     "Freelancer",
     "First aider"
   ],
