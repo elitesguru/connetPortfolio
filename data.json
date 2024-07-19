@@ -57,10 +57,10 @@
   },
   {
     "id": 8,
-    "screenshot": "images/portfolio.png",
+    "screenshot": "images/hale.png",
     "title": "Personal Portfolio",
     "info": "The site you are viewing right now. It is responsive and eye-catching, Only developed by using HTML, CSS and JavaScript. Hope am right :)",
-    "link": "https://jumanjigobez.github.io/personal_portfolio/",
+    "link": "https://johnbarack.netlify.app",
     "type": "personal_project"
   },
   {
