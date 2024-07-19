@@ -123,6 +123,7 @@ main {
 
 #header .logo {
   flex-basis: 400px;
+  border-radius: 5mm;
 }
 #header .logo h1 {
   font-size: 25px;
