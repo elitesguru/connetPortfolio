@@ -1020,7 +1020,7 @@ textarea:focus ~ label, textarea:valid ~ label{
   transition: all 0.2s linear;
 }
 #sidebar_items ul li:nth-child(3):hover:after {
-  content: "YouTube";
+  content: "space-X";
   left: 110%;
 }
 #sidebar_items ul li:nth-child(4):after {
